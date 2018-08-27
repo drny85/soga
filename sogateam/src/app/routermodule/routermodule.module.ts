@@ -1,3 +1,4 @@
+import { AuthserviceService } from './../services/authservice.service';
 import { PlayerDetailsComponent } from './../components/player-details/player-details.component';
 import { NotfoundComponent } from './../components/notfound/notfound.component';
 import { AddPlayerComponent } from './../components/add-player/add-player.component';
@@ -12,7 +13,7 @@ import { EditPlayerComponent } from '../components/edit-player/edit-player.compo
 const appRoutes: Routes = [ 
   { path: '', component: HomeComponent },
   { path: 'allplayers', component: AllplayersComponent},
-  { path: 'add-player', component: AddPlayerComponent },
+  { path: 'add-player', component: AddPlayerComponent, canActivate: [ AuthserviceService] },
   
 
   { path: 'edit-player/:id', component: EditPlayerComponent},
@@ -29,7 +30,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes)
   ],
-  declarations: [],
-  providers: []
+
+  providers: [AuthserviceService]
 })
 export class RoutermoduleModule { }

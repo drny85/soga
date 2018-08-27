@@ -1,3 +1,5 @@
+import { RoutermoduleModule } from './routermodule/routermodule.module';
+import { PlayersDataService } from './services/players-data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -22,9 +24,10 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     NotfoundComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RoutermoduleModule
   ],
-  providers: [],
+  providers: [ PlayersDataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

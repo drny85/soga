@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guards/auth.guard';
 import { LoginComponent } from './../components/login/login.component';
 import { AuthserviceService } from './../services/authservice.service';
 import { PlayerDetailsComponent } from './../components/player-details/player-details.component';
@@ -14,7 +15,7 @@ import { EditPlayerComponent } from '../components/edit-player/edit-player.compo
 const appRoutes: Routes = [ 
   { path: '', component: HomeComponent },
   { path: 'allplayers', component: AllplayersComponent},
-  { path: 'add-player', component: AddPlayerComponent, canActivate: [ AuthserviceService] },
+  { path: 'add-player', component: AddPlayerComponent },
   
 
   { path: 'edit-player/:id', component: EditPlayerComponent},

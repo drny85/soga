@@ -1,3 +1,4 @@
+import { LoginComponent } from './../components/login/login.component';
 import { AuthserviceService } from './../services/authservice.service';
 import { PlayerDetailsComponent } from './../components/player-details/player-details.component';
 import { NotfoundComponent } from './../components/notfound/notfound.component';
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
 
   { path: 'edit-player/:id', component: EditPlayerComponent},
   { path: 'player-details', component: PlayerDetailsComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: NotfoundComponent }
 ];
 

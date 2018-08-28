@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -41,6 +41,7 @@ import { LoginComponent } from './components/login/login.component';
     AngularFirestoreModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    AngularFireAuthModule
   ],
   providers: [ PlayersDataService, AuthserviceService ],
   bootstrap: [AppComponent]

@@ -1,3 +1,4 @@
+import { PlayersDataService } from './../../services/players-data.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllplayersComponent implements OnInit {
 
-  constructor() { }
+  players;
+
+  constructor(private playerSer: PlayersDataService) { }
 
   ngOnInit() {
+
+    this.playerSer.getPlayer().subscribe(players => this.players = players);
   }
 
 }

@@ -1,3 +1,31 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a routerLinkActive="active current" class="navbar-brand" routerLink="/"><a class="navbar-brand" href="#">
+    <img class="rounded" src="../../../assets/img/soga.jpg" width="60" height="50" alt="">
+  </a></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a routerLinkActive="active current" class="nav-link" routerLink="/">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLinkActive="active current"  class="nav-link" routerLink="add-player">Add Player</a>
+      </li>
+      <li class="nav-item">
+        <a routerLinkActive="active current" class="nav-link" routerLink="allplayers">All Players</a>
+      </li>
+     
+      <li *ngIf="!loggedIn" class="nav-item pull-right">
+        <a routerLinkActive="active current" class="nav-link" routerLink="login">Login</a>
+      </li>
+      <li *ngIf="loggedIn" class="nav-item pull-right">
+        <a routerLinkActive="active current" class="nav-link" (click)=logout()>Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>

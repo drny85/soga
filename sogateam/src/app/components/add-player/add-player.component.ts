@@ -29,10 +29,23 @@ export class AddPlayerComponent implements OnInit {
     rbis: 0,
     outs: 0,
     dob: '',
-    number: 0,
+    bb: 0, // base on balls
+    hidp: 0, // hit into double play
+    ko: 0, // strike outs
+    fo: 0, //force outs
+    number: 0, // jersey number
     atbat: 0,
     last_at_bat: '',
-    picture: ''
+    picture: '',
+    address: {
+      street: '',
+      apt: '',
+      city: '',
+      state: '',
+      zipcode: ''
+    },
+    phone: '',
+    email: ''
   }
 
   positions = ['1b', '2b', '3b', 'ss', 'lf', 'cf', 'rf', 'c', 'p', 'dh', 'ah', 'bench'];
@@ -44,7 +57,7 @@ export class AddPlayerComponent implements OnInit {
   snapshot: Observable<any>;
   nameFile: string = ''
   btnSuccess: string = 'Add Picture'; // to changes button text to upload picture
-  imageUpload: string = 'Upload Image'
+  imageUpload: string = 'Upload Image';
 
   constructor(private afStorage: AngularFireStorage, private message: ToastrService, private router: Router, private playerServ: PlayersDataService) { }
 

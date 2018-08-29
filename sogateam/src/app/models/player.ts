@@ -12,11 +12,24 @@ export interface Player {
     hrs?: number,
     rbis?: number,
     outs?: number,
+    fo?: number,
+    hidp?: number,
+    ko?: number,
+    bb?: number,
     dob?: string,
     number?: number,
     atbat?: number,
     last_at_bat?: string,
-    picture?: string
+    picture?: string,
+    address: {
+        street: string,
+        apt?: string,
+        city: string,
+        state: string,
+        zipcode: string
+    },
+    phone: string,
+    email: string
 
 
 }

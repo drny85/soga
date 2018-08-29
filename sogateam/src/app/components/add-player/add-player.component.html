@@ -69,7 +69,7 @@
           </div>
            <!-- Number Jersey input field  -->
            <div class="form-group col-md-4 col-lg-4">
-              <label for="number">Number</label>
+              <label for="number">Jersey Number</label>
               <input type="number" class="form-control" [(ngModel)]="player.number" 
               [ngClass]="{'is-invalid': p_number.touched && p_number.errors, 'is-valid': p_number.valid}"
               name="number" #p_number="ngModel"
@@ -85,8 +85,96 @@
             min="0">
         </div>
     </div>
+    <hr>
+
+    <h4 class="text-center">Player's Address</h4>
     <div class="row">
-      <h4 class="text-center"></h4>
+      <!-- Address street input field  -->
+      <div class="form-group col">
+        <label for="address">Address</label>
+        <input class="form-control" type="text" name="address" id="address" placeholder="Street name or Building" minlength="5"
+          [(ngModel)]="player.address.street" #p_address_street="ngModel" [ngClass]="{'is-invalid': p_address_street.touched && p_address_street.errors, 'is-valid': p_address_street.valid && p_address_street.touched }"
+          required>
+        <div [hidden]="!p_address_street.errors?.required" class="invalid-feedback">
+          Street name is required
+        </div>
+        <div [hidden]="!p_address_street.errors?.minlength" class="invalid-feedback">
+          Street name is too short or invalid.
+        </div>
+      </div>
+      <!-- Address apt  input field  -->
+      <div class="form-group col">
+        <label for="apt">Apt</label>
+        <input class="form-control" type="text" name="apt" [(ngModel)]="player.address.apt" placeholder="Apt" #p_apt>
+      </div>
+       <!-- Address city  input field  -->
+      <div class="form-group col">
+        <label for="city">City</label>
+        <input class="form-control" type="text" name="city" [(ngModel)]="player.address.city" placeholder="Type a city" 
+        [ngClass]="{'is-invalid': p_address_city.touched && p_address_city.errors, 'is-valid': p_address_city.valid && p_address_city.touched }"
+        #p_address_city="ngModel" required>
+        <div [hidden]="!p_address_street.errors?.required" class="invalid-feedback">
+            City is required...
+          </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="state">State</label>
+        <input class="form-control" type="text" name="state" id="state" [(ngModel)]="player.address.state" 
+        #p_address_state="ngModel"
+        placeholder="Type the state"
+        required
+        [ngClass]="{'is-invalid': p_address_state.touched && p_address_state.errors, 'is-valid': p_address_state.valid && p_address_state.touched }"
+        >
+        <div [hidden]="!p_address_state.errors?.required" class="invalid-feedback">
+            State is required...
+          </div>
+      </div>
+    <div class="form-group col">
+      <label for="zip">Zip Code</label>
+      <input class="form-control" type="text" name="zip" id="zip" [(ngModel)]="player.address.zipcode" #p_address_zip="ngModel"
+        placeholder="Enter the zip code" minlength="5" 
+        required 
+        pattern= "[0-9]"
+        [ngClass]="{'is-invalid': p_address_zip.touched && p_address_zip.errors, 'is-valid': p_address_zip.valid && p_address_zip.touched }">
+      <div [hidden]="!p_address_zip.errors?.required" class="invalid-feedback">
+        Zip code is required...
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" required [(ngModel)]="player.phone" #p_phone="ngModel"
+        [ngClass]="{'is-invalid': p_phone.touched && p_phone.errors, 'is-valid': p_phone.valid && p_phone.touched }"
+        pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+        >
+      <div [hidden]="!p_phone.errors?.pattern" class="invalid-feedback">
+        Phone is invalid
+      </div>
+
+      <div [hidden]="!p_phone.errors?.required" class="invalid-feedback">
+        Phone is required..
+      </div>
+
+      </div>
+      <div class="form-group col">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="player.email" #p_email="ngModel"
+          [ngClass]="{'is-invalid': p_email.touched && p_email.errors, 'is-valid': p_eamil.valid && p_email.touched }"
+          >
+        <div [hidden]="!p_phone.errors?.pattern" class="invalid-feedback">
+          Email is invalid
+        </div>
+        </div>
+    </div>
+    
+    <hr>
+    <h4 class="text-center">Player Statistics</h4>
+    <div class="row">
+      
       <!-- Singles input field  -->
       <div class="form-group col">
         <label for="singles">Singles</label>
@@ -112,12 +200,35 @@
         <label for="hrs">RBIs</label>
         <input class="form-control" type="number" name="rbis" id="rbis" [(ngModel)]="player.rbis" #p_rbis="ngModel">
       </div>
-       <!-- Outs input field  -->
-       <div class="form-group col">
-          <label for="hrs">Outs</label>
-          <input class="form-control" type="number" name="out" id="rbis" [(ngModel)]="player.outs" #p_outs="ngModel">
-        </div>
+       
     </div>
+    <div class="row">
+      <!-- HIDP input field  -->
+      <div class="form-group col">
+        <label for="hrs">HIDP</label>
+        <input class="form-control" type="number" name="hidp" id="rbis" [(ngModel)]="player.hidp" #p_hidp="ngModel">
+      </div>
+      <div class="form-group col">
+        <label for="bb">BB</label>
+        <input class="form-control" type="number" name="bb" id="bb" [(ngModel)]="player.bb" #p_bb="ngModel">
+      </div>
+      <div class="form-group col">
+        <label for="fo">F-Out</label>
+        <input class="form-control" type="number" name="fo" id="fo" [(ngModel)]="player.fo" #p_fo="ngModel">
+      </div>
+      <div class="form-group col">
+        <label for="ko">KO's</label>
+        <input class="form-control" type="number" name="ko" id="ko" [(ngModel)]="player.ko" #p_ko="ngModel">
+      </div>
+      <!-- Outs input field  -->
+      <div class="form-group col">
+        <label for="hrs">Outs</label>
+        <input class="form-control" type="number" name="out" id="rbis" [(ngModel)]="player.outs" #p_outs="ngModel">
+      </div>
+
+    </div>
+    <hr>
+    <h4 class="text-center">Player Additional Info</h4>
     <div class="row">
       <div class="form-group col">
         <label for="dob">Date of Birth</label>
@@ -137,6 +248,6 @@
  </form>
  
 </div>
-<div>
+<div class="mb-5">
   {{ player | json }}
 </div>

@@ -129,7 +129,7 @@ export class EditPlayerComponent implements OnInit {
   } else {
     // add player
    
-    this.playerServ.addPlayer(this.player);
+    this.playerServ.updatePlayer(this.player);
     this.router.navigate([`player-details/${this.id}`]);
     this.message.success('Player has been updated...', 'Updated!' );
 

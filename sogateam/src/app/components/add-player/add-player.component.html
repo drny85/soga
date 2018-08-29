@@ -75,7 +75,7 @@
               name="number" #p_number="ngModel"
               min="0"
               max="99">
-              <div [hidden]="!numberTaken">
+              <div [hidden]="!p_number.errors" class="invalid-feedback">
                 Number is already taken
               </div>
         </div>

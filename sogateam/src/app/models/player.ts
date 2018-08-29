@@ -12,6 +12,7 @@ export interface Player {
     hrs?: number,
     rbis?: number,
     outs?: number,
+    avg?: number,
     fo?: number,
     hidp?: number,
     ko?: number,

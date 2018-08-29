@@ -27,6 +27,7 @@ export class AddPlayerComponent implements OnInit {
     hits: 0,
     error: 0,
     singles : 0,
+    avg: 0,
     doubles: 0,
     triples: 0,
     hrs: 0,
@@ -89,9 +90,6 @@ export class AddPlayerComponent implements OnInit {
       return;
     } else {
 
-    let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
-    this.player.hits = hits;
-    
     let reference = this.afStorage.ref('img/' + id + '-' + name);
     this.task = reference.put(file);
     this.uploadProgress = this.task.percentageChanges();
@@ -107,13 +105,21 @@ export class AddPlayerComponent implements OnInit {
 
  onSubmit({value, valid}: { value: Player, valid: boolean}) {
   
-  if (!valid) {
+  if (!valid || this.numberTaken) {
     // add error
       console.log('error');
+      this.message.error('Please pick another number');
+      return;
 
   } else {
     // add player
-   
+
+
+    let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
+    this.player.hits = hits;
+    let avg = (hits / this.player.atbat) * 1000;
+    this.player.avg = avg
+    
     this.playerServ.addPlayer(this.player);
     this.router.navigate(['allplayers']);
     this.message.success('Player Added...', 'Added!' );
@@ -121,19 +127,27 @@ export class AddPlayerComponent implements OnInit {
   }
 }
 
-// checkNumber(event) {
-//   let num = event.target.value;
-//   let div = <HTMLBodyElement>event.target;
-//   console.log(div.parentNode);
-//   console.log(div.nextElementSibling);
-//   if (num == 5 ) {
-//     this.numberTaken = true;
-//     div.
+checkNumber(event) {
+  let num = <number>event.target.value;
+  let div = <HTMLBodyElement>event.target;
+ 
+    this.numberTaken = true;
+    this.playerServ.getPlayers()
+    .subscribe(p => p.forEach(pl => {
+      
+      if ( pl.number == num) {
+       this.message.error('The ' + num +' is already taken');
+       this.numberTaken = true;
+       return;
+      } else {
+        this.numberTaken = false;
+      }
+    }))
     
-  
-   
-// }
+    
 
 }
 
 
+
+}

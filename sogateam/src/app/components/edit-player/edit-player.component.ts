@@ -31,6 +31,7 @@ export class EditPlayerComponent implements OnInit {
     singles : 0,
     doubles: 0,
     triples: 0,
+    avg: 0,
     hrs: 0,
     rbis: 0,
     outs: 0,
@@ -104,9 +105,7 @@ export class EditPlayerComponent implements OnInit {
       return;
     } else {
 
-    let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
-    this.player.hits = hits;
-    
+     
     let reference = this.afStorage.ref('img/' + id + '-' + name);
     this.task = reference.put(file);
     this.uploadProgress = this.task.percentageChanges();
@@ -128,7 +127,11 @@ export class EditPlayerComponent implements OnInit {
 
   } else {
     // add player
-   
+
+    let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
+    this.player.hits = hits;
+    this.player.avg = hits;
+
     this.playerServ.updatePlayer(this.player);
     this.router.navigate([`player-details/${this.id}`]);
     this.message.success('Player has been updated...', 'Updated!' );

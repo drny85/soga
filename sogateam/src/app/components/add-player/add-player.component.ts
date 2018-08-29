@@ -60,6 +60,7 @@ export class AddPlayerComponent implements OnInit {
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
   snapshot: Observable<any>;
+  numberTaken = false;
   
   
   constructor(private afStorage: AngularFireStorage, private message: ToastrService, private router: Router, private playerServ: PlayersDataService) { }
@@ -120,4 +121,19 @@ export class AddPlayerComponent implements OnInit {
   }
 }
 
+// checkNumber(event) {
+//   let num = event.target.value;
+//   let div = <HTMLBodyElement>event.target;
+//   console.log(div.parentNode);
+//   console.log(div.nextElementSibling);
+//   if (num == 5 ) {
+//     this.numberTaken = true;
+//     div.
+    
+  
+   
+// }
+
 }
+
+

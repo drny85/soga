@@ -14,7 +14,7 @@ export class AllplayersComponent implements OnInit {
 
   ngOnInit() {
 
-    this.playerSer.getPlayer().subscribe(players => this.players = players);
+    this.playerSer.getPlayers().subscribe(players => this.players = players);
   }
 
 }

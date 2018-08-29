@@ -19,7 +19,7 @@ const appRoutes: Routes = [
   
 
   { path: 'edit-player/:id', component: EditPlayerComponent},
-  { path: 'player-details', component: PlayerDetailsComponent },
+  { path: 'player-details/:id', component: PlayerDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotfoundComponent }
 ];

@@ -1,5 +1,14 @@
 <div *ngFor="let player of players" class="card bg-light mb-3">
-  <h3 class="card-header text-center text-capitalize">{{ player.name }} {{ player.last_name }}</h3>
+  <div class="row">
+    <div class="col-md-10 col-lg-10">
+      <h3 class="card-header text-center text-capitalize">{{ player.name }} {{ player.last_name }}</h3>
+    </div>
+    <div class="col">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button routerLink="/player-details/{{ player.id }}" type="button" class="btn btn-dark pull-right mt-2"> Player Details</button>
+      </div>
+    </div>
+  </div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-3 col-lg-3">

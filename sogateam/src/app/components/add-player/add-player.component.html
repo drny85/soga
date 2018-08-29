@@ -1,3 +1,114 @@
-<p>
-  add-player works!
-</p>
+<div class="mt-5">
+  <div>
+    <h3 class="text-center mb-5">Adding a New Player</h3>
+  </div>
+ <form #myForm="ngForm">
+   <!-- first name input field  -->
+   <div class="row">
+     <div class="form-group col-md-6 col-lg-6">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="player.name" 
+        [ngClass]="{'is-invalid': p_name.touched && p_name.errors, 'is-valid': p_name.valid}"
+        name="name" #p_name="ngModel" 
+        pattern="[a-zA-Z]*"
+        minlength="3"
+        placeholder="Type First Name" required>
+        <div class="invalid-feedback" [hidden]="!p_name.errors?.required">
+          Name is required...
+        </div>
+        <div class="invalid-feedback" [hidden]="!p_name.errors?.minlength">
+          Name is too short...
+        </div>
+        <div class="invalid-feedback" [hidden]="!p_name.errors?.pattern">
+          Not numbers allowed...
+        </div>
+     </div>
+      <!-- Last name input field  -->
+      <div class="form-group col-md-6 col-lg-6">
+         <label for="lname">Last Name</label>
+         <input type="text" class="form-control" [(ngModel)]="player.last_name" 
+         [ngClass]="{'is-invalid': p_lname.touched && p_lname.errors, 'is-valid': p_lname.valid}"
+         name="name" #p_lname="ngModel" 
+         pattern="[a-zA-Z]*"
+         minlength="3"
+         placeholder="Type First Name" required>
+         <div class="invalid-feedback" [hidden]="!p_lname.errors?.required">
+          Name is required...
+         </div>
+         <div class="invalid-feedback" [hidden]="!p_lname.errors?.minlength">
+          Name is too short...
+        </div>
+        <div class="invalid-feedback" [hidden]="!p_lname.errors?.pattern">
+          Not numbers allowed...
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Position input field  -->
+          <div class="form-group col-md-6 col-lg-6">
+            <label for="pos">Position</label>
+             <select name="position" id="pos" [(ngModel)]="player.pos" class="form-control text-uppercase" #p_pos="ngModel" 
+             [ngClass]="{'is-invalid': p_pos.touched && p_pos.errors, 'is-valid': p_pos.valid}"
+             >
+               <option value="" disabled>Select a position</option>
+               <option *ngFor="let pos of positions" value="{{ pos }} ">{{ pos }}</option>
+             </select>
+             <div class="invalid-feedback" [hidden]="!p_pos.errors">
+                Position is required...
+               </div>
+          </div>
+           <!-- Number Jersey input field  -->
+           <div class="form-group col-md-6 col-lg-6">
+              <label for="number">Number</label>
+              <input type="number" class="form-control" [(ngModel)]="player.number" 
+              [ngClass]="{'is-invalid': p_number.touched && p_number.errors, 'is-valid': p_number.valid}"
+              name="number" #p_number="ngModel"
+              min="0"
+              max="99">
+        </div>
+    </div>
+    <div class="row">
+      <!-- Singles input field  -->
+      <div class="form-group col">
+        <label for="singles">Singles</label>
+        <input class="form-control" type="number" name="singles" id="singles" [(ngModel)]="player.singles" #p_singles="ngModel">
+      </div>
+      <!-- Doubles input field  -->
+      <div class="form-group col">
+        <label for="doubles">Doubles</label>
+        <input class="form-control" type="number" name="doubles" id="doubles" [(ngModel)]="player.doubles" #p_doubles="ngModel">
+      </div>
+      <!-- Triples input field  -->
+      <div class="form-group col">
+        <label for="triples">Triples</label>
+        <input class="form-control" type="number" name="triples" id="triples" [(ngModel)]="player.triples" #p_triples="ngModel">
+      </div>
+      <!-- HRs input field  -->
+      <div class="form-group col">
+        <label for="hrs">HRs</label>
+        <input class="form-control" type="number" name="hrs" id="hrs" [(ngModel)]="player.hrs" #p_hrs="ngModel">
+      </div>
+      <!-- RBIs input field  -->
+      <div class="form-group col">
+        <label for="hrs">RBIs</label>
+        <input class="form-control" type="number" name="rbis" id="rbis" [(ngModel)]="player.rbis" #p_rbis="ngModel">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="dob">Date of Birth</label>
+        <input type="date" class="form-control">
+      </div>
+      <div class="form-group col">
+        <label for="pic">Upload Image</label>
+        <button class="btn btn-secondary btn-block" (click)="p_pic.click()">Add Picture</button>
+      </div>
+      <div hidden class="form-control col">
+        <input class="form-control" type="file" (change)="onUpload($event)" name="pic" id="pic" accept=".png,.jpg"  [(ngModel)]=player.pic #p_pic>
+      </div>
+    </div>
+  
+ 
+ </form>
+ <img class="img-rounded" src="{{ downloadURL }}" alt="no image">
+</div>

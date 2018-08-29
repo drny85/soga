@@ -2,6 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthserviceService } from './../../services/authservice.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MzNavbarModule } from 'ngx-materialize'
 
 @Component({
   selector: 'app-navbar',

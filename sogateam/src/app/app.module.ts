@@ -7,8 +7,11 @@ import { NgModule } from '@angular/core';
 
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,7 +28,7 @@ import { LoginComponent } from './components/login/login.component';
 
 import { FormsModule } from '@angular/Forms';
 
-import { AngularFireStorageModule } from 'angularfire2/storage';
+
 
 
 
@@ -45,8 +48,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     BrowserModule,
     RoutermoduleModule,
     AngularFireModule.initializeApp(environment.firebase, 'sogateam'),
+    AngularFirestoreModule,
     AngularFireDatabaseModule,
-   
     AngularFireStorageModule,
    
     BrowserAnimationsModule, // required animations module

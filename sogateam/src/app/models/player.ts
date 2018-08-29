@@ -11,6 +11,7 @@ export interface Player {
     triples?: number,
     hrs?: number,
     rbis?: number,
+    outs?: number,
     dob?: string,
     number?: number,
     atbat?: number,

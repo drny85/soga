@@ -1,8 +1,18 @@
 <div class="mt-5">
-  <div>
-    <h3 class="text-center mb-5">Adding a New Player</h3>
+  <div *ngIf="downloadURL" class="row">
+    <div class="col-md-7 col-lg-7">
+        <h3 class="text-center mb-5">Adding a New Player</h3>
+    </div>
+    <div class="col-md-5 col-lg-5">
+        <img width="200" height="200" class="img-thumbnail" src="{{ downloadURL }}" alt="no image">
+        <caption>Image Preview</caption>
+    </div>
   </div>
- <form #myForm="ngForm">
+    <div *ngIf="!downloadURL">
+        <h3 class="text-center mb-5">Adding a New Player</h3>
+    </div>
+ 
+ <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
    <!-- first name input field  -->
    <div class="row">
      <div class="form-group col-md-6 col-lg-6">
@@ -45,7 +55,7 @@
     </div>
     <div class="row">
       <!-- Position input field  -->
-          <div class="form-group col-md-6 col-lg-6">
+          <div class="form-group col-md-5 col-lg-5">
             <label for="pos">Position</label>
              <select name="position" id="pos" [(ngModel)]="player.pos" class="form-control text-uppercase" #p_pos="ngModel" 
              [ngClass]="{'is-invalid': p_pos.touched && p_pos.errors, 'is-valid': p_pos.valid}"
@@ -58,7 +68,7 @@
                </div>
           </div>
            <!-- Number Jersey input field  -->
-           <div class="form-group col-md-6 col-lg-6">
+           <div class="form-group col-md-4 col-lg-4">
               <label for="number">Number</label>
               <input type="number" class="form-control" [(ngModel)]="player.number" 
               [ngClass]="{'is-invalid': p_number.touched && p_number.errors, 'is-valid': p_number.valid}"
@@ -66,8 +76,17 @@
               min="0"
               max="99">
         </div>
+          <!-- At bat input field  -->
+        <div class="form-group col-md-3 col-lg-3">
+           <label for="atbat">At Bat</label>
+            <input type="number" class="form-control" [(ngModel)]="player.atbat" 
+            [ngClass]="{'is-invalid': p_atbat.touched && p_atbat.errors, 'is-valid': p_atbat.valid}"
+            name="atbat" #p_atbat="ngModel"
+            min="0">
+        </div>
     </div>
     <div class="row">
+      <h4 class="text-center"></h4>
       <!-- Singles input field  -->
       <div class="form-group col">
         <label for="singles">Singles</label>
@@ -93,6 +112,11 @@
         <label for="hrs">RBIs</label>
         <input class="form-control" type="number" name="rbis" id="rbis" [(ngModel)]="player.rbis" #p_rbis="ngModel">
       </div>
+       <!-- Outs input field  -->
+       <div class="form-group col">
+          <label for="hrs">Outs</label>
+          <input class="form-control" type="number" name="out" id="rbis" [(ngModel)]="player.outs" #p_outs="ngModel">
+        </div>
     </div>
     <div class="row">
       <div class="form-group col">
@@ -100,15 +124,19 @@
         <input type="date" class="form-control">
       </div>
       <div class="form-group col">
-        <label for="pic">Upload Image</label>
-        <button class="btn btn-secondary btn-block" (click)="p_pic.click()">Add Picture</button>
+        <label for="pic">{{ imageUpload }}</label>
+        <button class="btn btn-secondary btn-block" (click)="p_pic.click()">{{ btnSuccess }}</button>
       </div>
       <div hidden class="form-control col">
         <input class="form-control" type="file" (change)="onUpload($event)" name="pic" id="pic" accept=".png,.jpg"  [(ngModel)]=player.pic #p_pic>
       </div>
     </div>
+    <button [disabled]="!myForm.form.valid" class="btn btn-primary btn-block">Add Player</button>
   
  
  </form>
- <img class="img-rounded" src="{{ downloadURL }}" alt="no image">
+ 
+</div>
+<div>
+  {{ player | json }}
 </div>

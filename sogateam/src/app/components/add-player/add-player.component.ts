@@ -1,10 +1,10 @@
-import { map } from 'rxjs/operators';
-
+import { PlayersDataService } from './../../services/players-data.service';
+import { Router } from '@angular/router';
 import { Player } from './../../models/player';
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
-import * as firebase from 'firebase';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -14,8 +14,6 @@ import * as firebase from 'firebase';
   styleUrls: ['./add-player.component.css']
 })
 export class AddPlayerComponent implements OnInit {
-
-  selectedPic: File = null;
 
   player: Player = {
     name: '',
@@ -29,6 +27,7 @@ export class AddPlayerComponent implements OnInit {
     triples: 0,
     hrs: 0,
     rbis: 0,
+    outs: 0,
     dob: '',
     number: 0,
     atbat: 0,
@@ -38,15 +37,16 @@ export class AddPlayerComponent implements OnInit {
 
   positions = ['1b', '2b', '3b', 'ss', 'lf', 'cf', 'rf', 'c', 'p', 'dh', 'ah', 'bench'];
 
-  ref: AngularFireStorageReference;
   task: AngularFireUploadTask;
   uploadState: Observable<string>;
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
   snapshot: Observable<any>;
   nameFile: string = ''
+  btnSuccess: string = 'Add Picture'; // to changes button text to upload picture
+  imageUpload: string = 'Upload Image'
 
-  constructor(private afStorage: AngularFireStorage) { }
+  constructor(private afStorage: AngularFireStorage, private message: ToastrService, private router: Router, private playerServ: PlayersDataService) { }
 
   ngOnInit() {
 
@@ -54,24 +54,51 @@ export class AddPlayerComponent implements OnInit {
 
 
   onUpload(event) {
+    
     const id = Math.random().toString(36).substring(2);
     let file = <File>event.target.files[0];
+    let imagSize = file.size;
+    let fileType = file.type;
     let name = file.name;
+    let ext = fileType.split('/', 1);
 
-    // this.task = this.afStorage.upload('img/'+id, event.target.files[0]);
-    // this.uploadState = this.task.snapshotChanges().pipe(map(s => s.state));
-    // console.log(this.uploadState);
+    if (imagSize > 3000000) {
+
+      this.message.error('File is too large', 'Error Uploading');
+      return;
+
+    } else if (ext[0] !== 'image') {
+      this.message.error('Invalid File', 'Error Uploading');
+      return;
+    } else {
     
-    // console.log(this.task);
-    // this.snapshot = this.task.snapshotChanges();
-    // console.log(this.snapshot);
-    // this.uploadProgress = this.task.percentageChanges();
-    // console.log(this.uploadProgress);
-    let reference = this.afStorage.ref('img/' + name);
+    let reference = this.afStorage.ref('img/' + id + '-' + name);
     this.task = reference.put(file);
     this.uploadProgress = this.task.percentageChanges();
-    this.task.then( snap => snap.ref.getDownloadURL().then(a => this.downloadURL = a));
+    this.task.then( snap => snap.ref.getDownloadURL().then(a => {this.downloadURL = a; this.player.picture = a;}));
+    this.message.success('Image succesfully uploaded', 'Great');
+    this.btnSuccess = 'Change Picture';
+    this.imageUpload = 'Image Uploaded';
+    
 
   }
+
+ }
+
+ onSubmit({value, valid}: { value: Player, valid: boolean}) {
+  
+  if (!valid) {
+    // add error
+      console.log('error');
+
+  } else {
+    // add player
+   
+    this.playerServ.addPlayer(this.player);
+    this.router.navigate(['allplayers']);
+    this.message.success('Player Added...', 'Added!' );
+
+  }
+}
 
 }

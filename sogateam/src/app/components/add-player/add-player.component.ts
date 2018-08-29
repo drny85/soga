@@ -13,7 +13,11 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './add-player.component.html',
   styleUrls: ['./add-player.component.css']
 })
+
 export class AddPlayerComponent implements OnInit {
+
+  btnSuccess: string = 'Add Picture'; // to changes button text to upload picture
+  imageUpload: string = 'Upload Image';
 
   player: Player = {
     name: '',
@@ -35,6 +39,8 @@ export class AddPlayerComponent implements OnInit {
     fo: 0, //force outs
     number: 0, // jersey number
     atbat: 0,
+    phone: '',
+    email: '',
     last_at_bat: '',
     picture: '',
     address: {
@@ -43,9 +49,8 @@ export class AddPlayerComponent implements OnInit {
       city: '',
       state: '',
       zipcode: ''
-    },
-    phone: '',
-    email: ''
+    }
+   
   }
 
   positions = ['1b', '2b', '3b', 'ss', 'lf', 'cf', 'rf', 'c', 'p', 'dh', 'ah', 'bench'];
@@ -55,10 +60,8 @@ export class AddPlayerComponent implements OnInit {
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
   snapshot: Observable<any>;
-  nameFile: string = ''
-  btnSuccess: string = 'Add Picture'; // to changes button text to upload picture
-  imageUpload: string = 'Upload Image';
-
+  
+  
   constructor(private afStorage: AngularFireStorage, private message: ToastrService, private router: Router, private playerServ: PlayersDataService) { }
 
   ngOnInit() {
@@ -84,6 +87,9 @@ export class AddPlayerComponent implements OnInit {
       this.message.error('Invalid File', 'Error Uploading');
       return;
     } else {
+
+    let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
+    this.player.hits = hits;
     
     let reference = this.afStorage.ref('img/' + id + '-' + name);
     this.task = reference.put(file);

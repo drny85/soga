@@ -17,6 +17,8 @@ export interface Player {
     ko?: number,
     bb?: number,
     dob?: string,
+    phone: string,
+    email: string,
     number?: number,
     atbat?: number,
     last_at_bat?: string,
@@ -27,9 +29,8 @@ export interface Player {
         city: string,
         state: string,
         zipcode: string
-    },
-    phone: string,
-    email: string
+    }
+    
 
 
 }

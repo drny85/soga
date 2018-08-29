@@ -120,6 +120,7 @@
 
     </div>
     <div class="row">
+         <!-- Address state  input field  -->
       <div class="form-group col">
         <label for="state">State</label>
         <input class="form-control" type="text" name="state" id="state" [(ngModel)]="player.address.state" 
@@ -133,41 +134,47 @@
           </div>
       </div>
     <div class="form-group col">
+         <!-- Address zipcode  input field  -->
       <label for="zip">Zip Code</label>
-      <input class="form-control" type="text" name="zip" id="zip" [(ngModel)]="player.address.zipcode" #p_address_zip="ngModel"
-        placeholder="Enter the zip code" minlength="5" 
+      <input class="form-control" type="text" name="zipcode" id="zip" [(ngModel)]="player.address.zipcode" #p_address_zip="ngModel"
+        placeholder="Enter the zip code"
         required 
-        pattern= "[0-9]"
+        minlength="5"
         [ngClass]="{'is-invalid': p_address_zip.touched && p_address_zip.errors, 'is-valid': p_address_zip.valid && p_address_zip.touched }">
       <div [hidden]="!p_address_zip.errors?.required" class="invalid-feedback">
         Zip code is required...
       </div>
+      <div [hidden]="!p_address_zip.errors?.minlength" class="invalid-feedback">
+        Zip code is invalid
+      </div>
     </div>
     </div>
     <div class="row">
-      <div class="form-group col">
-        <label for="phone">Phone</label>
-        <input type="text" class="form-control" required [(ngModel)]="player.phone" #p_phone="ngModel"
-        [ngClass]="{'is-invalid': p_phone.touched && p_phone.errors, 'is-valid': p_phone.valid && p_phone.touched }"
-        pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
-        >
-      <div [hidden]="!p_phone.errors?.pattern" class="invalid-feedback">
-        Phone is invalid
-      </div>
-
-      <div [hidden]="!p_phone.errors?.required" class="invalid-feedback">
-        Phone is required..
-      </div>
-
-      </div>
+         <!-- Email input field  -->
       <div class="form-group col">
           <label for="email">Email</label>
-          <input type="email" class="form-control" [(ngModel)]="player.email" #p_email="ngModel"
-          [ngClass]="{'is-invalid': p_email.touched && p_email.errors, 'is-valid': p_eamil.valid && p_email.touched }"
+          <input type="email" class="form-control" name="email" [(ngModel)]="player.email" #p_email="ngModel"
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          [ngClass]="{'is-invalid': p_email.touched && p_email.errors, 'is-valid': p_email.valid && p_email.touched }"
           >
-        <div [hidden]="!p_phone.errors?.pattern" class="invalid-feedback">
+        <div [hidden]="!p_email.errors?.pattern" class="invalid-feedback">
           Email is invalid
         </div>
+        </div>
+           <!--Phone input field  -->
+        <div class="form-group col">
+          <label for="phone">Phone</label>
+          <input type="phone" class="form-control" name="phone" [(ngModel)]="player.phone" #p_phone="ngModel"
+          pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+          required
+          [ngClass]="{'is-invalid': p_phone.touched && p_phone.errors, 'is-valid': p_phone.valid && p_phone.touched }"
+          >
+        <div [hidden]="!p_phone.errors?.pattern" class="invalid-feedback">
+          Phone is invalid
+        </div>
+        <div [hidden]="!p_phone.errors?.required" class="invalid-feedback">
+            Phone is required...
+          </div>
         </div>
     </div>
     
@@ -236,7 +243,7 @@
       </div>
       <div class="form-group col">
         <label for="pic">{{ imageUpload }}</label>
-        <button class="btn btn-secondary btn-block" (click)="p_pic.click()">{{ btnSuccess }}</button>
+        <button type="button" class="btn btn-secondary btn-block" (click)="p_pic.click()">{{ btnSuccess }}</button>
       </div>
       <div hidden class="form-control col">
         <input class="form-control" type="file" (change)="onUpload($event)" name="pic" id="pic" accept=".png,.jpg"  [(ngModel)]=player.pic #p_pic>

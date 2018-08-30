@@ -65,6 +65,8 @@ export class EditPlayerComponent implements OnInit {
   downloadURL: Observable<string>;
   snapshot: Observable<any>;
 
+  numberTaken: boolean;
+
   constructor( private afStorage: AngularFireStorage, private route: ActivatedRoute, private router: Router, private message: ToastrService, private playerServ: PlayersDataService, public location: Location) {
     router.events.subscribe(url => {
       if (location.path() !== '') {
@@ -120,17 +122,25 @@ export class EditPlayerComponent implements OnInit {
  }
 
  onSubmit({value, valid}: { value: Player, valid: boolean}) {
+
+ 
   
-  if (!valid) {
+  console.log(this.numberTaken);
+  
+  if (!valid || this.numberTaken) {
     // add error
       console.log('error');
+      this.message.error('Please pick another number', 'Number Taken');
+      document.getElementById('number').classList.add('is-invalid');
+      
+      return;
 
   } else {
-    // add player
 
     let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
     this.player.hits = hits;
-    this.player.avg = hits;
+    let avg = (hits / this.player.atbat) * 1000;
+    this.player.avg = avg;
 
     this.playerServ.updatePlayer(this.player);
     this.router.navigate([`player-details/${this.id}`]);
@@ -138,6 +148,34 @@ export class EditPlayerComponent implements OnInit {
 
   }
 }
+
+
+checkNumber(event) {
+  let num = event.target.value;
+  
+    this.playerServ.getPlayers()
+    .subscribe(p => p.forEach(pl => {
+      
+      if ( pl.number == num) {
+      this.numberTaken = true;
+      document.getElementById('number').classList.add('is-invalid');
+     
+      } 
+      
+    }))
+
+    if (this.numberTaken) {
+      this.numberTaken = false;
+      document.getElementById('number').classList.remove('is-invalid');
+     
+    }
+
+    
+    
+    
+
+}
+
 
 
 }

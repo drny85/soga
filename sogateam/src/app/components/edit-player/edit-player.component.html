@@ -70,11 +70,15 @@
              <!-- Number Jersey input field  -->
              <div class="form-group col-md-4 col-lg-4">
                 <label for="number">Jersey Number</label>
-                <input type="number" class="form-control" [(ngModel)]="player.number" 
+                <input type="number" id="number" class="form-control" [(ngModel)]="player.number" 
                 [ngClass]="{'is-invalid': p_number.touched && p_number.errors, 'is-valid': p_number.valid}"
+                (change)="checkNumber($event)"
                 name="number" #p_number="ngModel"
                 min="0"
                 max="99">
+                <div class="invalid-feedback" [hidden]="!numberTaken">
+                  Number already taken..
+                 </div>
           </div>
             <!-- At bat input field  -->
           <div class="form-group col-md-3 col-lg-3">
@@ -246,7 +250,7 @@
           <button type="button" class="btn btn-secondary btn-block" (click)="p_pic.click()">{{ btnSuccess }}</button>
         </div>
         <div hidden class="form-control col">
-          <input class="form-control" type="file" (change)="onUpload($event)" name="pic" id="pic" accept=".png,.jpg"  [(ngModel)]=player.pic #p_pic>
+          <input class="form-control" type="file" (change)="onUpload($event)" name="pic" id="pic" accept=".png,.jpg"  #p_pic>
         </div>
       </div>
       <br>

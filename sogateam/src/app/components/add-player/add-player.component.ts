@@ -85,10 +85,12 @@ export class AddPlayerComponent implements OnInit {
       this.message.error('File is too large', 'Error Uploading');
       return;
 
-    } else if (ext[0] !== 'image') {
+    } 
+
+    if (ext[0] !== 'image') {
       this.message.error('Invalid File', 'Error Uploading');
       return;
-    } else {
+    } 
 
     let reference = this.afStorage.ref('img/' + id + '-' + name);
     this.task = reference.put(file);
@@ -97,19 +99,21 @@ export class AddPlayerComponent implements OnInit {
     this.message.success('Image succesfully uploaded', 'Great');
     this.btnSuccess = 'Change Picture';
     this.imageUpload = 'Image Uploaded';
-    
 
   }
 
- }
-
  onSubmit({value, valid}: { value: Player, valid: boolean}) {
+
+  console.log(this.numberTaken);
   
   if (!valid || this.numberTaken) {
     // add error
-      console.log('error');
-      this.message.error('Please pick another number');
-      return;
+    console.log('error');
+    this.message.error('Please pick another number', 'Number Taken');
+    document.getElementById('number').classList.add('is-invalid');
+    
+    return;
+
 
   } else {
     // add player
@@ -128,22 +132,24 @@ export class AddPlayerComponent implements OnInit {
 }
 
 checkNumber(event) {
-  let num = <number>event.target.value;
-  let div = <HTMLBodyElement>event.target;
- 
-    this.numberTaken = true;
+  let num = event.target.value;
+  
     this.playerServ.getPlayers()
     .subscribe(p => p.forEach(pl => {
       
       if ( pl.number == num) {
-       this.message.error('The ' + num +' is already taken');
-       this.numberTaken = true;
-       return;
-      } else {
-        this.numberTaken = false;
-      }
+      this.numberTaken = true;
+      document.getElementById('number').classList.add('is-invalid');
+     
+      } 
     }))
-    
+
+    if (this.numberTaken) {
+      this.numberTaken = false;
+      document.getElementById('number').classList.remove('is-invalid');
+     
+    }
+
     
 
 }

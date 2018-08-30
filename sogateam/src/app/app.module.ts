@@ -55,9 +55,7 @@ import { FormsModule } from '@angular/Forms';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     AngularFireAuthModule,
-    FormsModule,
- 
- 
+    FormsModule
    
   ],
   providers: [ PlayersDataService, AuthserviceService ],

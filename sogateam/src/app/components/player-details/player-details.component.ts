@@ -47,19 +47,21 @@ export class PlayerDetailsComponent implements OnInit {
   showMore() {
     let div = <HTMLBodyElement>document.getElementById('show');
     let btn = <HTMLBodyElement>document.getElementById('showBtn');
+  
     this.showMoreDiv = !this.showMoreDiv;
-      
+   
     if (this.showMoreDiv) {
      
       btn.innerText = 'Show Less';
-      
+    
       div.classList.replace('zoomOut', 'zoomIn');
       
     } else {
+      
+      div.classList.replace('zoomIn', 'zoomOut');
     
       btn.innerText = 'Show More';
-      div.classList.replace('zoomIn', 'zoomOut');
-     
+    
     }
     
   }

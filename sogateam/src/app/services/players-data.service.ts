@@ -14,6 +14,7 @@ export class PlayersDataService {
   players: Observable<Player[]>;
   playerDoc: AngularFirestoreDocument<Player>;
   player: Observable<Player>;
+  allnumber: number[];
 
   constructor(private afs: AngularFirestore) { 
     this.getPlayers();
@@ -67,4 +68,5 @@ export class PlayersDataService {
     this.playerDoc= this.afs.doc(`players/${player.id}`);
     this.playerDoc.update(player);
   }
+
 }

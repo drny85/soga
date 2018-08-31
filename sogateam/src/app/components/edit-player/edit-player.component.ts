@@ -18,6 +18,8 @@ export class EditPlayerComponent implements OnInit {
   currentRoute = '';
   locationURL: string;
 
+  currentDate: string;
+
   btnSuccess: string = 'Add Picture'; // to changes button text to upload picture
   imageUpload: string = 'Upload Image';
 
@@ -46,6 +48,7 @@ export class EditPlayerComponent implements OnInit {
     email: '',
     last_at_bat: '',
     picture: '',
+    last_update: '',
     address: {
       street: '',
       apt: '',
@@ -78,11 +81,12 @@ export class EditPlayerComponent implements OnInit {
    }
 
   ngOnInit() {
-
+    
     this.id = this.route.snapshot.params['id'];
     this.playerServ.getPlayer(this.id).subscribe(player => this.player = player);
     this.currentRoute = this.router.url;
     console.log(this.currentRoute);
+    
 
   }
 
@@ -123,10 +127,6 @@ export class EditPlayerComponent implements OnInit {
 
  onSubmit({value, valid}: { value: Player, valid: boolean}) {
 
- 
-  
-  console.log(this.numberTaken);
-  
   if (!valid || this.numberTaken) {
     // add error
       console.log('error');
@@ -141,6 +141,7 @@ export class EditPlayerComponent implements OnInit {
     this.player.hits = hits;
     let avg = (hits / this.player.atbat) * 1000;
     this.player.avg = avg;
+    this.player.last_update = new Date().toLocaleString();
 
     this.playerServ.updatePlayer(this.player);
     this.router.navigate([`player-details/${this.id}`]);

@@ -62,12 +62,21 @@ export class AddPlayerComponent implements OnInit {
   downloadURL: Observable<string>;
   snapshot: Observable<any>;
   numberTaken = false;
+  allnumber: number[] = [];
   
   
   constructor(private afStorage: AngularFireStorage, private message: ToastrService, private router: Router, private playerServ: PlayersDataService) { }
 
   ngOnInit() {
+    this.playerServ.getPlayers().subscribe(p => p.forEach(player => {
+      this.allnumber.push(player.number);
+    }))
 
+    console.log(this.allnumber);
+  }
+
+  findNumber(arr,obj) {
+    return (arr.indexOf(obj) != -1);
   }
 
 
@@ -133,6 +142,8 @@ export class AddPlayerComponent implements OnInit {
 
 checkNumber(event) {
   let num = event.target.value;
+
+  console.log(this.findNumber(this.allnumber, num));
   
     this.playerServ.getPlayers()
     .subscribe(p => p.forEach(pl => {

@@ -23,6 +23,7 @@ export interface Player {
     number?: number,
     atbat?: number,
     last_at_bat?: string,
+    last_update?: string,
     picture?: string,
     address: {
         street: string,

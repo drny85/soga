@@ -37,18 +37,19 @@
   
       </div>
       <br>
-      <button class="btn btn-info pull-right" (click)="showMore()" id="showBtn">Show More</button>
+      <button class="btn btn-info pull-right" (click)="showMore()" id="showBtn"><i class="fa fa-plus" id="fa" aria-hidden="true"></i> Show More</button>
       
     </div>
     <div id="show" [hidden]="!showMoreDiv" class="animated zoomIn">
       <h3 class="text-center alert alert-secondary" role="alert">Player Additional Information</h3>
       <ul class="list-group">
-        <li class="list-group-item"><strong>Address: </strong>{{ player.address.street }}  </li>
-        <li class="list-group-item"><strong>City: </strong>{{ player.address.city }}  </li>
-        <li class="list-group-item"><strong>State: </strong>{{ player.address.state }}  </li>
+        <li class="list-group-item text-capitalize"><strong>Address: </strong>{{ player.address.street }}  </li>
+        <li class="list-group-item text-capitalize"><strong>City: </strong>{{ player.address.city }}  </li>
+        <li class="list-group-item text-capitalize"><strong>State: </strong>{{ player.address.state }}  </li>
         <li class="list-group-item"><strong>Zip Code: </strong>{{ player.address.zipcode }}  </li>
         <li class="list-group-item"><strong>Phone: </strong>{{ player.phone }}  </li>
-        <li class="list-group-item"><strong>Email: </strong>{{ player.email }}  </li>
+        <li class="list-group-item"><strong>Email: </strong><a href="mailto:{{ player.email }}" >{{ player.email }} </a> </li>
+        <li class="list-group-item"><i>Last Update: {{ player.last_update }}</i> </li>
       </ul>
      </div>
   

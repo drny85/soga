@@ -159,9 +159,10 @@ checkNumber(event) {
       if ( pl.number == num) {
       this.numberTaken = true;
       document.getElementById('number').classList.add('is-invalid');
+      this.message.error(`The number ${num} is already taken by ${pl.name.toUpperCase()} ${pl.last_name.toUpperCase()}`);
      
       } 
-      
+
     }))
 
     if (this.numberTaken) {

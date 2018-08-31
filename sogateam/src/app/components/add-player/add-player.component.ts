@@ -122,7 +122,7 @@ export class AddPlayerComponent implements OnInit {
     let hits = this.player.singles + this.player.doubles + this.player.triples + this.player.hrs;
     this.player.hits = hits;
     let avg = (hits / this.player.atbat) * 1000;
-    this.player.avg = avg
+    this.player.avg = avg;
     
     this.playerServ.addPlayer(this.player);
     this.router.navigate(['allplayers']);
@@ -140,6 +140,7 @@ checkNumber(event) {
       if ( pl.number == num) {
       this.numberTaken = true;
       document.getElementById('number').classList.add('is-invalid');
+      this.message.error(`The number ${num} is already taken by ${pl.name.toUpperCase()} ${pl.last_name.toUpperCase()}`);
      
       } 
     }))

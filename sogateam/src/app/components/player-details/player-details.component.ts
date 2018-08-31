@@ -15,6 +15,7 @@ export class PlayerDetailsComponent implements OnInit {
   id: string;
   player: Player;
   url: string;
+  showMoreDiv: boolean = false;
   
 
   
@@ -35,12 +36,34 @@ export class PlayerDetailsComponent implements OnInit {
   onDelete() {
     if (confirm('Are you sure you want to delete it?')) {
       this.playerServ.deletePlayer(this.id)
-      this.message.info('Player has been deleted', 'Deteled');
+      this.message.info(`${this.player.name.toUpperCase()} ${this.player.last_name.toUpperCase()} has been deleted from SogaTeam`);
       this.router.navigate(['allplayers']);
     } else {
     this.message.info('No changes were made', 'Canceled');
   }
 
   }
+
+  showMore() {
+    let div = <HTMLBodyElement>document.getElementById('show');
+    let btn = <HTMLBodyElement>document.getElementById('showBtn');
+    this.showMoreDiv = !this.showMoreDiv;
+      
+    if (this.showMoreDiv) {
+     
+      btn.innerText = 'Show Less';
+      
+      div.classList.replace('zoomOut', 'zoomIn');
+      
+    } else {
+    
+      btn.innerText = 'Show More';
+      div.classList.replace('zoomIn', 'zoomOut');
+     
+    }
+    
+  }
+
+ 
   
 }
